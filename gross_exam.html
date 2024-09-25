@@ -93,6 +93,7 @@
     var thisProbState = 0; // 0: unanswered; 1: correct, 2: wrong, 3: TLE
     var history_block;
     var url;
+    var answersheetSetBox = document.getElementById("answersheetSet");
 
     /* https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript */
     function setCookie(name,value,days) {
@@ -158,19 +159,17 @@
             // var url = "./answersheet.csv";
             $.getScript("https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.js",function(){
 
-                var id = "1xx3LAOByVnspxKPGwn5-0AwReJq0pZLyomD6AtzHTnE";
-                var gid = "0";
-
                 // Ref: https://stackoverflow.com/questions/74464800/download-google-sheet-as-csv-from-url-using-javascript
                 url = getCookie("sheeturl");
-                if (!url) {
+                if (!(url)) {
+                    var id = "1xx3LAOByVnspxKPGwn5-0AwReJq0pZLyomD6AtzHTnE";
+                    var gid = "0";
                     url = "https://docs.google.com/spreadsheets/d/"+id+"/export?format=csv&gid="+gid;
                 }
+                setCookie("sheeturl", url, 14);
                 
                 $("#settingBtn").click(function() {
-                    var gid = document.getElementById("gidSet").value;
-                    var url_value = document.getElementById("answersheetSet").value
-                    url = url_value + "/export?format=csv&gid="+gid;                    
+                    url = answersheetSetBox.value;                  
                     console.log("update url " + url);
                     setCookie("sheeturl", url, 14);
                 });
@@ -427,7 +426,7 @@
 
             <div>Answersheet url：
                 <input id="answersheetSet" value="https://docs.google.com/spreadsheets/d/1xx3LAOByVnspxKPGwn5-0AwReJq0pZLyomD6AtzHTnE" style="width: auto;">
-                （複製到"/edit..."前；），工作表編號(網址那個"gid="後面)<input id="gidSet" value="0" style="width: auto;"/>（可照格式自訂，記得設成公開!）
+                （/可照格式自訂，記得設成公開!）
                 <button id="settingBtn" value="submit">確認修改</button> 
             </div>
         </div>
@@ -457,10 +456,7 @@
     
     <div id="pop" style="margin:5px"></div>
     <div>
-        <div><marquee class="blink">↓↓↓ 讚啦解決ㄌ 現在會直接同步讀下面這個表單ㄛ!! ↓↓↓</marquee></div>
-        <a href="https://docs.google.com/spreadsheets/d/1xx3LAOByVnspxKPGwn5-0AwReJq0pZLyomD6AtzHTnE/edit?usp=sharing" target="_blank">
-            <button class="spreadsheet">我要勘誤/寫詳解/加題目</button>
-        </a>
+        <div><marquee class="blink"> 讚啦解決ㄌ 現在會直接同步讀表單ㄛ!! </marquee></div>
     </div>   
     <div style="position:absolute; font-size: 5px; color: grey; top: 0px; right: 0px">
         Created by: Yu-Tong Cheng, Contributed by: B09 NTU MED.
