@@ -93,7 +93,6 @@
     var thisProbState = 0; // 0: unanswered; 1: correct, 2: wrong, 3: TLE
     var history_block;
     var url;
-    var answersheetSetBox = document.getElementById("answersheetSet");
 
     /* https://stackoverflow.com/questions/14573223/set-cookie-and-get-cookie-with-javascript */
     function setCookie(name,value,days) {
@@ -169,6 +168,7 @@
                 setCookie("sheeturl", url, 14);
                 
                 $("#settingBtn").click(function() {
+                    var answersheetSetBox = document.getElementById("answersheetSet");
                     url = answersheetSetBox.value;                  
                     console.log("update url " + url);
                     setCookie("sheeturl", url, 14);
